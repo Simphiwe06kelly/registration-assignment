@@ -2,45 +2,37 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 package com.mycompany.registration2;
-
-import java.util.Scanner;
-
 /**
  *
  * @author RC_Student_lab
  */
+import javax.swing.JOptionPane;
+
 public class Registration2 {
-
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
-        // User input with validation for username
+        // Username input and validation
         String username;
         boolean checkUser;
-
-        // Keep prompting the user until the username is valid
         do {
-            System.out.print("Enter username: ");
-            username = scanner.nextLine();
+            username = JOptionPane.showInputDialog(null, "Enter username:");
+            if (username == null) System.exit(0);
 
-            // Check if the username contains an underscore and is 5 characters or less
             checkUser = username.contains("_") && username.length() <= 5;
 
             if (checkUser) {
-                System.out.println("Username successfully captured.");
+                JOptionPane.showMessageDialog(null, "Username successfully captured.");
             } else {
-                System.out.println("Username is not correctly formatted please ensure that your username contains '_' and is 5 characters in length.");
+                JOptionPane.showMessageDialog(null, "Username is not correctly formatted. Please ensure that your username contains '_' and is 5 characters or less.");
             }
-        } while (!checkUser);  // Loop continues until the username is valid
+        } while (!checkUser);
 
-        // Password validation
+        // Password input and validation
         String password;
         boolean checkPassword;
         do {
-            System.out.print("Enter password: ");
-            password = scanner.nextLine();
+            password = JOptionPane.showInputDialog(null, "Enter password:");
+            if (password == null) System.exit(0);
 
-            // Check for password complexity
             checkPassword = password.length() >= 8
                     && password.matches(".*[A-Z].*")
                     && password.matches(".*[a-z].*")
@@ -48,172 +40,134 @@ public class Registration2 {
                     && password.matches(".*[!@#$%^&*()].*");
 
             if (checkPassword) {
-                System.out.println("Password successfully captured.");
+                JOptionPane.showMessageDialog(null, "Password successfully captured.");
             } else {
-                System.out.println("Password is not correctly formatted,please ensure that your password contains at least 8 characters long, an uppercase letter, a lowercase letter, a number, and a special character.");
+                JOptionPane.showMessageDialog(null, "Password is not correctly formatted. Please ensure your password contains at least 8 characters, an uppercase letter, a lowercase letter, a number, and a special character.");
             }
-        } while (!checkPassword);  // Loop continues until the password is valid
+        } while (!checkPassword);
 
-        // Cell number validation
+        // Cell number input and validation
         String cellNumber;
         boolean checkCellNumber;
         do {
-            System.out.print("Enter cell number (e.g. +27123456789): ");
-            cellNumber = scanner.nextLine();
+            cellNumber = JOptionPane.showInputDialog(null, "Enter cell number (e.g. +27123456789):");
+            if (cellNumber == null) System.exit(0);
 
-            // Check if cell number starts with +27 and is 10 digits long
-            checkCellNumber = cellNumber.startsWith("+27") && cellNumber.length() == 13; // "+27" + 10 digits = 13 characters
+            checkCellNumber = cellNumber.startsWith("+27") && cellNumber.length() == 13;
 
             if (checkCellNumber) {
-                System.out.println("Cell phone number successfully captured.");
+                JOptionPane.showMessageDialog(null, "Cell phone number successfully captured.");
             } else {
-                System.out.println("Cell phone number is not correctly formatted or does not contain international code.");
+                JOptionPane.showMessageDialog(null, "Cell phone number is not correctly formatted or does not contain international code.");
             }
-        } while (!checkCellNumber);  // Loop continues until the cell number is valid
+        } while (!checkCellNumber);
 
-        // First name validation
+        // First name input and validation
         String firstName;
         boolean checkFirstName;
         do {
-            System.out.print("Enter first name: ");
-            firstName = scanner.nextLine();
+            firstName = JOptionPane.showInputDialog(null, "Enter first name:");
+            if (firstName == null) System.exit(0);
 
-            // Check if first name is not empty
-            checkFirstName = !firstName.isEmpty();
+            checkFirstName = !firstName.trim().isEmpty();
 
             if (checkFirstName) {
-                System.out.println("First name is valid.");
+                JOptionPane.showMessageDialog(null, "First name is valid.");
             } else {
-                System.out.println("First name cannot be empty.");
+                JOptionPane.showMessageDialog(null, "First name cannot be empty.");
             }
-        } while (!checkFirstName);  // Loop continues until the first name is valid
+        } while (!checkFirstName);
 
-        // Last name validation
+        // Last name input and validation
         String lastName;
         boolean checkLastName;
         do {
-            System.out.print("Enter last name: ");
-            lastName = scanner.nextLine();
+            lastName = JOptionPane.showInputDialog(null, "Enter last name:");
+            if (lastName == null) System.exit(0);
 
-            // Check if last name is not empty
-            checkLastName = !lastName.isEmpty();
+            checkLastName = !lastName.trim().isEmpty();
 
             if (checkLastName) {
-                System.out.println("Last name is valid.");
+                JOptionPane.showMessageDialog(null, "Last name is valid.");
             } else {
-                System.out.println("Last name cannot be empty.");
+                JOptionPane.showMessageDialog(null, "Last name cannot be empty.");
             }
-        } while (!checkLastName);  // Loop continues until the last name is valid
+        } while (!checkLastName);
 
-        //Output the details entered by the user
-        System.out.println("\nUser Registration Complete:");
-        System.out.println("Username: " + username);
-        System.out.println("First Name: " + firstName);
-        System.out.println("Last Name: " + lastName);
-        System.out.println("Cell Number: " + cellNumber);
+        // Output summary
+        String summary = "User Registration Complete:\n"
+                + "Username: " + username + "\n"
+                + "First Name: " + firstName + "\n"
+                + "Last Name: " + lastName + "\n"
+                + "Cell Number: " + cellNumber;
+        JOptionPane.showMessageDialog(null, summary);
 
+        // Create user object
         Login user = new Login(username, password, cellNumber, firstName, lastName);
 
-/* Register user
-        System.out.println(user.registerUser()); */
+        // --- Login section ---
+        JOptionPane.showMessageDialog(null, "--- Login ---");
+        String enteredUsername;
+        String enteredPassword;
+        boolean correctUsername = false;
+        boolean correctPassword = false;
 
-/* Then allow them to log in
-        System.out.print("Enter username to ,log in: ");
-        String enteredUsername = scanner.nextLine();
-
-        System.out.print("Enter password: ");
-        String enteredPassword = scanner.nextLine();
-
-        boolean isSuccessful = user.loginUser(enteredUsername, enteredPassword);
-
-// Show login status
-        System.out.println(user.returnLoginStatus(isSuccessful)); */
-        
-        
-        
-        
-
-
-System.out.println("\n--- Login ---");
-
-String enteredUsername = "";
-String enteredPassword = "";
-boolean correctUsername = false;
-boolean correctPassword = false;
-
-//  Loop for correct username
-while (!correctUsername) {
-    System.out.print("Enter username: ");
-    enteredUsername = scanner.nextLine();
-
-    if (enteredUsername.equals(user.getUsername())) {
-        correctUsername = true;
-    } else {
-        System.out.println("Incorrect username. Please try again.");
-    }
-}
-
-//  Loop for correct password
-while (!correctPassword) {
-    System.out.print("Enter password: ");
-    enteredPassword = scanner.nextLine();
-
-    if (user.loginUser(enteredUsername, enteredPassword)) {
-        correctPassword = true;
-        System.out.println("Welcome, " + user.getFirstName() + " " + user.getLastName() + ", it's great to see you again.");
-    } else {
-        System.out.println("Username or password incorrect please try again.");
-    }
-}
-
-
-
-        // Create Login object
-        /* Login newUser = new Login(username, password, cellNumber, firstName, lastName);
-
-        // Check and display specific validation messages
-        boolean valid = true;
-
-        if (!newUser.checkUsername(username)) {
-            System.out.println("The username is incorrectly formatted. It should contain an underscore and be no more than 5 characters long.");
-            valid = false;
-        }
-
-        if (!Login.isPasswordComplex(password)) {
-            System.out.println("The password does not meet complexity requirements.\nIt must be at least 8 characters long and include:\n- an uppercase letter\n- a lowercase letter\n- a number\n- a special character (!@#$%^&*())");
-            valid = false;
-        }
-
-        if (!newUser.checkCellNumber()) {
-            System.out.println("The cell number is incorrectly formatted. It should start with +27 and be no more than 10 digits long (excluding +27).");
-            valid = false;
-        }
-
-        // If all fields are valid, continue with registration
-        if (valid) {
-            System.out.println("\nThe above conditions have been met, and the user has been registered successfully.");
-
-            // Proceed to login
-            System.out.println("\nPlease log in:");
-
-            System.out.print("Enter username: ");
-            String loginUsername = scanner.nextLine();
-
-            System.out.print("Enter password: ");
-            String loginPassword = scanner.nextLine();
-
-            boolean isLoggedIn = newUser.loginUser(loginUsername, loginPassword);
-            String loginMessage = newUser.returnLoginStatus(isLoggedIn);
-            System.out.println(loginMessage);
-
-            if (isLoggedIn) {
-                System.out.print("Welcome, ");
-                newUser.displayFullName();
+         do {
+            enteredUsername = JOptionPane.showInputDialog(null, "Enter username:");
+            if (enteredUsername == null) System.exit(0);
+            correctUsername = enteredUsername.equals(user.getUsername());
+            if (!correctUsername) {
+                JOptionPane.showMessageDialog(null, "Incorrect username. Please try again.");
             }
-        } else {
-            System.out.println("\nRegistration failed. Please fix the errors above and try again.");
-        }
+        } while (!correctUsername);
 
-        scanner.close();*/
+        do {
+            enteredPassword = JOptionPane.showInputDialog(null, "Enter password:");
+            if (enteredPassword == null) System.exit(0);
+            if (user.loginUser(enteredUsername, enteredPassword)) {
+                correctPassword = true;
+                JOptionPane.showMessageDialog(null, "Welcome, " + user.getFirstName() + " " + user.getLastName() + ", it's great to see you again.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Username or password incorrect. Please try again.");
+            }
+        } while (!correctPassword);
+
+        //Messaging section 
+        JOptionPane.showMessageDialog(null, "--- Welcome to QuickChat ---");
+        String sendMsgAnswer = JOptionPane.showInputDialog(null, "Do you want to send a message? (yes/no):");
+
+        if (sendMsgAnswer != null && sendMsgAnswer.equalsIgnoreCase("yes")) {
+          
+            String messageID = ""; 
+          
+            String recipientCell = "";
+            boolean validRecipient = false;
+
+            // Get valid recipient number
+            while (!validRecipient) {
+                recipientCell = JOptionPane.showInputDialog(null, "Enter recipient's cell number (starts with 0, max 10 digits):");
+
+                Message tempMessage = new Message(messageID, recipientCell);
+                if (tempMessage.checkRecipientCell() == 1) {
+                    validRecipient = true;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Invalid recipient cell number. Please try again.");
+                }
+            }
+
+            // Get message content
+           String messageContent = "";
+
+            // Final message object and send
+            Message createdMessage = new Message("", recipientCell);
+            createdMessage.promptForMessage();
+            String generatedID = createdMessage.generateMessageID(); 
+            createdMessage.setMessage(messageContent, generatedID);
+            createdMessage.createMessageHash(generatedID, messageContent); 
+
+            JOptionPane.showMessageDialog(null, createdMessage.sendMessage());
+        } else {
+            JOptionPane.showMessageDialog(null, "No message will be sent.");
+        }
     }
 }
